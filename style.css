@@ -1,0 +1,105 @@
+* {
+	box-sizing: border-box;
+	font-family: Arial, sans-serif;
+}
+
+#container {
+	max-width: 800px;
+	margin: auto;
+}
+
+.program {
+	padding: 10px 20px;
+	background: #dedede;
+	margin: 15px 5px;
+	border-radius: 5px;
+}
+
+.programUni {
+	font-variant: small-caps;
+	margin-bottom: 5px;
+	font-weight: bold;
+	font-size: 1.1em;
+	display: block;
+}
+
+.programTitle {
+	font-weight: bold;
+	font-size: 1.2em;
+}
+
+.programData {
+	margin-top: 5px;
+}
+
+.programCode {
+	margin-left: 10px;
+	color: #555;
+}
+
+.programButton {
+	display: block;
+	margin-top: 10px;
+	font-size: 0.9em;
+	user-select: none;
+	cursor: pointer;
+}
+
+#header h1, #header p {
+	margin: 15px 20px;
+}
+
+#header input {
+	width: calc(100% - 10px);
+	margin: 0 0 10px 5px;
+	padding: 10px 20px;
+	background: #eee;
+	border: none;
+	outline: none !important;
+	border-radius: 5px;
+	transition: 0.2s;
+}
+
+#header input:focus {
+	background: #ddd;
+}
+
+.graph {
+	display: flex;
+	align-items: flex-end;
+	background: white;
+	padding: 10px;
+	justify-content: center;
+	border-radius: 5px;
+	margin-top: 5px;
+	height: 300px;
+}
+
+.graphLine {
+	width: 50px;
+	background: green;
+	color: black;
+	font-size: 0.9em;
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
+	padding: 18px 0 2px 0;
+	transition: 0.1s;
+}
+
+.graphLine:hover {
+	filter: brightness(0.8);
+}
+
+.graphLineZero {
+	background: rgb(100, 128, 100) !important;
+}
+
+p {
+	line-height: 1.3em;
+	color: #444;
+}
+
+.programGrade {
+	filter: brightness(0.6);
+}
