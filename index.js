@@ -42,6 +42,7 @@ const data = {
 	container: null,
 	content: null,
 	header: null,
+	tooltip: null,
 	searchTerm: ""
 };
 
@@ -82,8 +83,12 @@ const components = {
 		const avg = program.responses.reduce((acc, val) => acc + val.avg, 0) / program.responses.length;
 		const rounded = Math.round(avg * 10) / 10;
 
-		const bottomQuartile = program.responses[Math.floor(program.responses.length / 4)].avg;
-		const topQuartile = program.responses[Math.floor(3 * program.responses.length / 4)].avg;
+		let bottomQuartile = 0, topQuartile = 0;
+
+		if (program.responses.length) {
+			bottomQuartile = program.responses[Math.floor(program.responses.length / 4)].avg;
+			topQuartile = program.responses[Math.floor(3 * program.responses.length / 4)].avg;
+		}
 
 		return `
 			<div class="program">
@@ -219,6 +224,31 @@ function createGraph(elem, textElem, programCode) {
 
 	textElem.innerText = "Hide graph";
 	elem.innerHTML += components.graph(data.programDict[programCode].responses.map(response => response.avg));
+
+	const graph = elem.querySelector(".graph");
+	const lines = graph.querySelectorAll(".graphLine");
+
+	for (let line of lines) {
+		line.onmouseover = function() {
+			if (!data.tooltip) {
+				data.tooltip = document.createElement("div");
+				data.tooltip.className = "tooltip";
+				document.body.appendChild(data.tooltip);
+			}
+
+			data.tooltip.style.display = "block";
+			data.tooltip.style.left = this.offsetLeft > window.innerWidth / 2 ? `${this.offsetLeft - 125}px` : `${this.offsetLeft + this.clientWidth}px`;
+			data.tooltip.style.top = `${this.offsetTop}px`;
+			data.tooltip.innerHTML = `<b style="font-size: 1.1em">${this.getAttribute("data-percent")}%</b><br>Count: ${this.getAttribute("data-count")}`;
+		}
+
+		line.onmouseout = function() {
+			if (data.tooltip) {
+				data.tooltip.remove();
+				data.tooltip = null;
+			}
+		}
+	}
 }
 
 window.addEventListener("load", () => {
